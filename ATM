@@ -1,0 +1,51 @@
+from logic import ATM
+
+def run_atm():
+    my_atm = ATM(1000)  # Starting balance
+    
+    while True:
+        print("\n" + "="*30)
+        print("      🏧 ATM SERVICES")
+        print("="*30)
+        print("1. Check Balance")
+        print("2. Deposit Money")
+        print("3. Withdraw Money")
+        print("4. View Statement")
+        print("5. Exit System")
+        print("="*30)
+
+        choice = input("Select Option (1-5): ")
+
+        if choice == '1':
+            print(f"💰 Your Current Balance: {my_atm.get_balance()}")
+
+        elif choice == '2':
+            try:
+                amt = float(input("Enter amount to deposit: "))
+                success, message = my_atm.deposit(amt)
+                print(f"{'✅' if success else '❌'} {message}")
+            except ValueError:
+                print("⚠️ Error: Please enter a valid number.")
+
+        elif choice == '3':
+            try:
+                amt = float(input("Enter amount to withdraw: "))
+                success, message = my_atm.withdraw(amt)
+                print(f"{'✅' if success else '❌'} {message}")
+            except ValueError:
+                print("⚠️ Error: Please enter a valid number.")
+
+        elif choice == '4':
+            print("\n--- 📜 Transaction History ---")
+            for record in my_atm.get_history():
+                print(record)
+            print(f"Current Total: {my_atm.get_balance()}")
+
+        elif choice == '5':
+            print("👋 Exiting... Thank you for using our ATM!")
+            break
+        else:
+            print("🚫 Invalid choice. Please select 1-5.")
+
+if __name__ == "__main__":
+    run_atm()
